@@ -1,4 +1,4 @@
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyRnEFUBqI8CD-V-AORCtc0d48nQJLFiixJJXsNkddOL4RAhhoxmhDXSWElKBekkHPMlQ/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzjBD7fR_Ph1dcTK9D0HDUkUikwDYIJin6n5hFUXCdfzJlQF_Eh_5dCGipAxWEBX9I6nA/exec';
 const RECAPTCHA_SITE_KEY = '6LfjFgUrAAAAAKZGVUxEgdoDr2lwh2xaDf6oj_0V';
 
 // URLからクエリパラメータを解析する関数
