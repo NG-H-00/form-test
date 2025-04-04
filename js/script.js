@@ -1,4 +1,4 @@
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzjBD7fR_Ph1dcTK9D0HDUkUikwDYIJin6n5hFUXCdfzJlQF_Eh_5dCGipAxWEBX9I6nA/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwmb7ZkNWV1ANuXsz4QRCl8QI8mEs6RdtnldwtVn_sF7b1n5tip4u_d7tcCNezjAxdANA/exec';
 const RECAPTCHA_SITE_KEY = '6LfjFgUrAAAAAKZGVUxEgdoDr2lwh2xaDf6oj_0V';
 
 // URLからクエリパラメータを解析する関数
@@ -339,13 +339,14 @@ function validateForm() {
         { id: 'birth-day', label: '生年月日(日)', type: 'select', required: true },
         { id: 'phone', label: 'お電話番号', type: 'phone', required: true },
         { id: 'email', label: 'メールアドレス', type: 'email', required: true },
-        { id: 'street-address', label: '市町・丁名番地', type: 'text', required: true },
+        { id: 'address-city-town-chome', label: '市・町・丁目', type: 'text', required: true },
+        { id: 'address-banchi', label: '番地', type: 'text', required: true },
         { id: 'electric-company', label: '電力会社', type: 'select', required: true },
-        { id: 'other-company', label: 'その他の電力会社名', type: 'text', required: document.getElementById('electric-company')?.value === 'その他' }, 
+        { id: 'other-company', label: 'その他の電力会社名', type: 'text', required: document.getElementById('electric-company')?.value === 'その他' },
         { id: 'customer-number', label: 'お客様番号', type: 'text', required: true },
         { id: 'supply-point-number', label: '供給地点特定番号', type: 'supplyPoint', required: true },
-        { id: 'payment-type', label: 'お支払方法', type: 'select', required: document.getElementById('gas-no')?.classList.contains('selected') }, 
-        { id: 'notification-type', label: 'ご確認方法', type: 'select', required: document.getElementById('gas-no')?.classList.contains('selected') }, 
+        { id: 'payment-type', label: 'お支払方法', type: 'select', required: document.getElementById('gas-no')?.classList.contains('selected') },
+        { id: 'notification-type', label: 'ご確認方法', type: 'select', required: document.getElementById('gas-no')?.classList.contains('selected') },
         { id: 'agreement-checkbox', label: '重要事項説明への同意', type: 'checkbox', required: true },
         { id: 'notes-confirmed-checkbox', label: '注意事項の確認', type: 'checkbox', required: true },
     ];
@@ -355,7 +356,16 @@ function validateForm() {
 
     fieldsToValidate.forEach(fieldInfo => {
         const element = document.getElementById(fieldInfo.id);
-        if (!element || !fieldInfo.required) return; // 要素がないか必須でない場合はスキップ
+        if (!element) {
+             // 動的に必須が変わる要素は存在チェックも行う
+             if (fieldInfo.id === 'other-company' && !(document.getElementById('electric-company')?.value === 'その他')) return;
+             if ((fieldInfo.id === 'payment-type' || fieldInfo.id === 'notification-type') && !document.getElementById('gas-no')?.classList.contains('selected')) return;
+
+             // 上記以外で要素が見つからない場合はエラーログを出すなどしても良い
+             // console.warn(`Element with ID "${fieldInfo.id}" not found.`);
+             return;
+        }
+        if (!fieldInfo.required) return; // 必須でない場合はスキップ
 
         let value = '';
         let isError = false;
@@ -411,12 +421,29 @@ function validateForm() {
                 // チェックボックスの場合はラベルなどにスタイルを適用することを検討
                 // element.closest('.checkbox-container')?.classList.add('error-checkbox');
             }
+            // 生年月日は関連するselect全てにエラークラスを付与
+            if(fieldInfo.id.startsWith('birth')) {
+                document.getElementById('birth-year')?.classList.add('error');
+                document.getElementById('birth-month')?.classList.add('error');
+                document.getElementById('birth-day')?.classList.add('error');
+            }
+        } else {
+             // エラーがなければエラークラスを削除（個別チェック時）
+             if (fieldInfo.type !== 'checkbox') {
+                 element.classList.remove('error');
+             }
+              // 生年月日はエラーがなければ関連するselect全てからエラークラスを削除
+             if(fieldInfo.id.startsWith('birth') && !errorMessages.includes('生年月日を選択してください')) {
+                 document.getElementById('birth-year')?.classList.remove('error');
+                 document.getElementById('birth-month')?.classList.remove('error');
+                 document.getElementById('birth-day')?.classList.remove('error');
+             }
         }
     });
 
     // エラーメッセージがあれば表示
     if (!isValid) {
-        showErrorModal([...new Set(errorMessages)]); // 重複削除して表示
+        showErrorModal([...new Set(errorMessages)]); 
     }
 
     return isValid;
@@ -630,6 +657,12 @@ function resetForm() {
         submitBtn.disabled = true;
         submitBtn.textContent = '申し込む';
     }
+
+    // 新しい住所フィールドもクリア
+    const cityTownChomeInput = document.getElementById('address-city-town-chome');
+    if (cityTownChomeInput) cityTownChomeInput.value = '';
+    const banchiInput = document.getElementById('address-banchi');
+    if (banchiInput) banchiInput.value = '';
 }
 
 /**
@@ -650,7 +683,9 @@ function collectFormData() {
         phone: document.getElementById('phone')?.value.trim() || '',
         email: document.getElementById('email')?.value.trim() || '',
         fixedAddress: document.querySelector('.fixed-address')?.textContent || '鹿児島県',
-        streetAddress: document.getElementById('street-address')?.value.trim() || '',
+        // streetAddress: document.getElementById('street-address')?.value.trim() || '', // ← 削除
+        addressCityTownChome: document.getElementById('address-city-town-chome')?.value.trim() || '', // ← 追加
+        addressBanchi: document.getElementById('address-banchi')?.value.trim() || '', // ← 追加
         buildingName: document.getElementById('building-name')?.value.trim() || '',
         paymentType: '', // 後で条件に応じて設定
         notificationType: '', // 後で条件に応じて設定

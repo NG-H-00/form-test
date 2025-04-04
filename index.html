@@ -112,15 +112,28 @@
             <h2>③<strong>ご利用場所の住所</strong></h2>
             <div class="fixed-address">鹿児島県</div>
 
-            <div class="form-group">
-            <label for="street-address" class="required">市町・丁名番地</label>
-            <input
-                type="text"
-                id="street-address"
-                placeholder="(例)鹿児島市〇〇一丁目１－１ もしくは 〇〇町１１１１"
-                required
-                maxlength="20"
-            />
+            <!-- 変更箇所: form-row を使って横並びに配置 -->
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="address-city-town-chome" class="required">市・町・丁目</label>
+                    <input
+                        type="text"
+                        id="address-city-town-chome"
+                        placeholder="(例)鹿児島市荒田〇丁目 or 鹿児島市中央町"
+                        required
+                        maxlength="30"
+                    />
+                </div>
+                <div class="form-column">
+                    <label for="address-banchi" class="required">番地</label>
+                    <input
+                        type="text"
+                        id="address-banchi"
+                        placeholder="(例)１１１１番地"
+                        required
+                        maxlength="20"
+                    />
+                </div>
             </div>
 
             <div class="form-group">
@@ -133,6 +146,7 @@
             />
             </div>
         </section>
+
 
         <section id="payment-method" style="display: none">
             <h2>④<strong>お支払い方法 / 電気使用量・料金のご確認方法について</strong></h2>
