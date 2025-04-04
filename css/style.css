@@ -204,6 +204,19 @@ input[type='email']:focus {
     font-weight: bold;
 }
 
+.required-conditional::after {
+    content: ' *';
+    color: #ff0000;
+    margin-left: 2px;
+    font-weight: bold;
+    display: none; /* 初期状態では非表示 */
+}
+
+/* JavaScriptで .required-active クラスが付与されたら表示 */
+.required-conditional.required-active::after {
+    display: inline;
+}
+
 /* 契約者情報のフォームスタイル */
 #contractor-info .form-group {
     margin-bottom: 20px;

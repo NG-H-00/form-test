@@ -24,7 +24,7 @@
             <span id="sales-code-display" class="sales-code-box">営業担当: -</span>
             <h1 class="form-title-h">日本ガスでんき<br>申し込みフォーム</h1>
         </div>
-        
+
         <section>
             <h2>
             ①<strong>現在のお住まいで、ガスをご利用いただいていますか？</strong>
@@ -89,7 +89,7 @@
                     <option value="">日</option>
                   </select>
                 </div>
-            </div>            
+            </div>
 
             <div class="form-group">
             <label for="phone" class="required">お電話番号</label>
@@ -103,7 +103,7 @@
                 id="email"
                 placeholder="例:sample@example.com"
                 required
-                required maxlength="50"
+                maxlength="50"
             />
             </div>
         </section>
@@ -112,14 +112,14 @@
             <h2>③<strong>ご利用場所の住所</strong></h2>
             <div class="fixed-address">鹿児島県</div>
 
-            <!-- 変更箇所: form-row を使って横並びに配置 -->
+            <!-- 住所分割 -->
             <div class="form-row">
                 <div class="form-column">
                     <label for="address-city-town-chome" class="required">市・町・丁目</label>
                     <input
                         type="text"
                         id="address-city-town-chome"
-                        placeholder="(例)鹿児島市荒田〇丁目 or 鹿児島市中央町"
+                        placeholder="(例)鹿児島市荒田〇丁目 or 鹿児島市〇〇町"
                         required
                         maxlength="30"
                     />
@@ -135,6 +135,7 @@
                     />
                 </div>
             </div>
+            <!-- /住所分割 -->
 
             <div class="form-group">
             <label for="building-name">建物名・部屋番号</label>
@@ -147,18 +148,13 @@
             </div>
         </section>
 
-
         <section id="payment-method" style="display: none">
             <h2>④<strong>お支払い方法 / 電気使用量・料金のご確認方法について</strong></h2>
             <div class="subsection">
                 <h3>お支払い方法について</h3>
-
-                <!-- ガス利用「はい」の場合 -->
                 <div id="payment-gas-yes" style="display: none">
                     <p class="info-text">現在ご利用中の日本ガスの都市ガス料金と合算して、お支払いとなります。なお、ガスと電気セット割の適用条件は、「口座振替」または「クレジットカード払い」となります。</p>
                 </div>
-
-                <!-- ガス利用「いいえ」の場合 -->
                 <div id="payment-gas-no" style="display: none">
                     <div class="form-group">
                         <label for="payment-type" class="required">お支払方法</label>
@@ -166,12 +162,10 @@
                             <option value="">選択してください</option>
                             <option value="bank">口座振替</option>
                             <option value="credit">クレジットカード</option>
-                            <option value="payment_slip">コンビニ・ゆうちょ銀行兼用払込票</option> 
+                            <option value="payment_slip">コンビニ・ゆうちょ銀行兼用払込票</option>
                         </select>
                     </div>
-
                     <div id="payment-notice-container">
-
                         <p id="payment-notice-bank" class="payment-notice-item subsection-notice" style="display: none;">
                             ※口座振替申込書を郵送します。お手続き完了までは「コンビニゆうちょ銀行兼用払込票」でのお支払いになります。
                         </p>
@@ -180,21 +174,16 @@
                         </p>
                         <p id="payment-notice-slip" class="payment-notice-item subsection-notice" style="display: none;">
                             ※払込票を郵送いたします。
-                        </p>    
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="subsection">
                 <h3>電気使用量・料金のご確認方法について</h3>
-
-                <!-- ガス利用「はい」の場合 -->
                 <div id="notification-gas-yes" style="display: none">
                      <p class="info-text">ガスの検針票と同時に電気の検針票を発行します。なお、電気の請求はひと月遅れとなります。（例：4月分電気代を5月分のガス代と合算して請求）</p>
-
                 </div>
-
-                <!-- ガス利用「いいえ」の場合 -->
                 <div id="notification-gas-no" style="display: none">
                     <div class="form-group">
                         <label for="notification-type" class="required">電気使用量・料金のご確認方法</label>
@@ -205,11 +194,9 @@
                             <option value="none">不要</option>
                         </select>
                     </div>
-
                     <div class="notification-info" id="notification-details">
-
                         <p id="notification-detail-mail" class="notification-detail-item subsection-notice" style="display: none;">
-                            「電気ご使用量のお知らせ」を郵送いたします。<span style="color: red; font-weight: bold;">別途110円/月（税込）の手数料がかかります。</span>
+                            「電気ご使用量のお知らせ」を郵送いたします。<span style="color: red; font-weight: bold;">別途100円/月（税抜）の手数料がかかります。</span>
                         </p>
                         <p id="notification-detail-web" class="notification-detail-item subsection-notice" style="display: none;">
                             Web会員サイト「うぇぶひだまり」にてご確認いただけます（無料）。別途「うぇぶひだまり」への会員登録が必要です。
@@ -218,39 +205,49 @@
                             紙面での郵送やWebでの確認が不要な方向けです。
                         </p>
                     </div>
+                </div>
             </div>
         </section>
 
         <section id="electricity-contract" style="display: none">
             <h2>⑤<strong>現在の電気契約について</strong></h2>
-
             <div class="notice-box">
                 <p><strong>事前にご契約情報をお手元にご用意ください。</strong></p>
-
                 <div class="documents-required">
                     <div class="document-item">
                         <p>電気の使用量がわかる紙の検針票</p>
                         <div class="document-image">
-                            <img
-                            src="./images/検針票.jpg"
-                            alt="検針票サンプル"
-                            class="sample-image"
-                            />
+                            <img src="./images/検針票.jpg" alt="検針票サンプル" class="sample-image"/>
                         </div>
                     </div>
-
                     <div class="document-item">
                         <p>電力会社のWeb会員ページ</p>
                         <div class="document-image">
-                            <img
-                            src="./images/Web検針票.jpg"
-                            alt="会員ページサンプル"
-                            class="sample-image"
-                            />
+                            <img src="./images/Web検針票.jpg" alt="会員ページサンプル" class="sample-image"/>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- 電気契約者名義 -->
+            <div class="form-group" id="electric-contract-name-section">
+                <label for="electric-contract-name-input" class="required-conditional">電気契約者名義</label>
+                <div class="checkbox-container" style="margin-bottom: 10px;">
+                    <input type="checkbox" id="same-contractor-name-checkbox" checked>
+                    <span class="checkbox-text">「②契約者情報」で入力した名義と同じ</span>
+                </div>
+                <div id="electric-contract-name-container" style="display: none;">
+                    <input
+                        type="text"
+                        id="electric-contract-name-input"
+                        placeholder="例：ニホンガス ハナコ"
+                        maxlength="50"
+                    />
+                    <!-- <span class="error-message" id="electric-contract-name-error"></span> -->
+                </div>
+                 <p class="subsection-notice" id="contract-name-notice" style="margin-top: 5px;">「②契約者情報」で入力した名義と異なる場合のみ、チェックを外して入力してください。</p>
+            </div>
+            <!-- /電気契約者名義 -->
 
             <div class="form-group">
                 <label for="electric-company" class="required">電力会社</label>
@@ -259,7 +256,7 @@
                     <option value="九州電力">九州電力</option>
                     <option value="その他">その他</option>
                 </select>
-                <div class="other-input" id="other-company-input">
+                <div class="other-input" id="other-company-input" style="display: none;"> <!-- 初期非表示 -->
                     <input
                     type="text"
                     id="other-company"
@@ -295,78 +292,65 @@
 
         <section id="agreement-section" style="display: none">
             <h2>⑥<strong>重要事項説明の同意</strong></h2>
-            
             <div class="notice-box">
                 <p>お申し込みには、重要事項説明書の内容に同意いただき、下の「同意します」にチェックを付けていただく必要がございます。<br>重要事項説明書をダウンロードのうえ必ずご確認ください。</p>
-                
                 <div class="download-button-container">
                     <a href="txt/重要事項説明書.pdf" class="download-button" id="download-btn">重要事項説明書をダウンロード</a>
                 </div>
-                
-                <div class="download-message" id="download-message">ダウンロードしました</div>
-                
+                <div class="download-message" id="download-message" style="display: none;">ダウンロードしました</div> <!-- 初期非表示 -->
                 <div class="agreement-checkbox">
                 <label class="checkbox-container">
-                    <input type="checkbox" id="agreement-checkbox" disabled>
+                    <input type="checkbox" id="agreement-checkbox" disabled> <!-- 初期無効 -->
                     <span class="checkbox-text">重要事項説明書の内容に同意します</span>
                 </label>
                 </div>
             </div>
         </section>
 
-    </section>
-
-    <section id="application-notes-section" style="display: none;">
-        <h2>⑦<strong>お申し込みにあたって</strong></h2>
-        <div class="notice-box">
-            <p>
-                お申し込みにあたって、以下の注意事項をご確認いただき、下の「確認しました」にチェックを付けていただく必要がございます。<br><br>
-                <strong>1. お申し込みいただける条件</strong><br>
-                　・契約電流・容量: 30A、40A、50A、60Aまたは6kVA以上<br>
-                　・対象地域: 鹿児島県内（離島を除く）<br>
-                　※一括受電契約の集合住宅にお住まいのお客様は切り替えできませんのでご注意ください<br><br>
-
-                <strong>2. こちらのフォームではお申し込みいただけないケース</strong><br>
-                　以下に当てはまる場合は、お電話にてお問い合わせください:<br>
-                　　①現在、低圧電力・高圧・特別高圧で契約中のお客様<br>
-                　　②申し込みと同時に契約電流や容量の変更を希望されるお客様<br><br>
-
-                <strong>3. 電気契約を複数地点切り替えを希望されるお客さま</strong><br>
-                　電気契約を複数地点切り替えを希望されるお客さまは、その契約件数分のお申し込みが必要となります。<br><br>
-
-                <strong>4. 電力会社切り替えに伴う解約金について</strong><br>
-                　電力会社の切り替えにより、現在ご契約中の小売電気事業者にて解約金等が発生する場合がございますので、ご注意ください。<br><br>
-
-                <strong>5. 入力内容の確認について</strong><br>
-                　入力内容に誤りや不備があった場合、確認のためお電話またはメールにてご連絡させていただく場合がございます。ご連絡が取れない場合、お申し込み手続きを一時保留またはキャンセルさせていただくことがありますので、ご了承ください。<br><br>
-
-                <strong>6. キャンセル・変更について</strong><br>
-                　お申し込み後のキャンセルや変更をご希望の場合は、お早めにお電話にてご連絡ください。<br><br>
-
-                <strong>【お問い合わせ先】</strong><br>
-                日本ガスコールセンター(受付時間8:30~19:00) : 099-203-0608<br>
-
-            </p>
-
-            <div class="agreement-checkbox">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="notes-confirmed-checkbox" required>
-                    <span class="checkbox-text">注意事項を確認しました</span>
-                </label>
-            </div>
-        </div>
-    </section>
-
-        <section id="submit-section" style="display: none">
-            <div class="submit-container">
-                <button id="submit-btn" class="submit-btn">申し込む</button>
+        <section id="application-notes-section" style="display: none;">
+            <h2>⑦<strong>お申し込みにあたって</strong></h2>
+            <div class="notice-box">
+                <p>
+                    お申し込みにあたって、以下の注意事項をご確認いただき、下の「確認しました」にチェックを付けていただく必要がございます。<br><br>
+                    <strong>1. お申し込みいただける条件</strong><br>
+                    　・契約電流・容量: 30A、40A、50A、60Aまたは6kVA以上<br>
+                    　・対象地域: 鹿児島県内（離島を除く）<br>
+                    　※一括受電契約の集合住宅にお住まいのお客様は切り替えできませんのでご注意ください<br><br>
+                    <strong>2. こちらのフォームではお申し込みいただけないケース</strong><br>
+                    　以下に当てはまる場合は、お電話にてお問い合わせください:<br>
+                    　　①現在、低圧電力・高圧・特別高圧で契約中のお客様<br>
+                    　　②申し込みと同時に契約電流や容量の変更を希望されるお客様<br><br>
+                    <strong>3. 電気契約を複数地点切り替えを希望されるお客さま</strong><br>
+                    　電気契約を複数地点切り替えを希望されるお客さまは、その契約件数分のお申し込みが必要となります。<br><br>
+                    <strong>4. 電力会社切り替えに伴う解約金について</strong><br>
+                    　電力会社の切り替えにより、現在ご契約中の小売電気事業者にて解約金等が発生する場合がございますので、ご注意ください。<br><br>
+                    <strong>5. 入力内容の確認について</strong><br>
+                    　入力内容に誤りや不備があった場合、確認のためお電話またはメールにてご連絡させていただく場合がございます。ご連絡が取れない場合、お申し込み手続きを一時保留またはキャンセルさせていただくことがありますので、ご了承ください。<br><br>
+                    <strong>6. キャンセル・変更について</strong><br>
+                    　お申し込み後のキャンセルや変更をご希望の場合は、お早めにお電話にてご連絡ください。<br><br>
+                    <strong>【お問い合わせ先】</strong><br>
+                    日本ガスコールセンター(受付時間8:30~19:00) : 099-203-0608<br>
+                </p>
+                <div class="agreement-checkbox">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="notes-confirmed-checkbox" required>
+                        <span class="checkbox-text">注意事項を確認しました</span>
+                    </label>
+                </div>
             </div>
         </section>
 
-        <section id="completion-modal" class="modal">
+        <section id="submit-section" style="display: none">
+            <div class="submit-container">
+                <button id="submit-btn" class="submit-btn" disabled>申し込む</button> <!-- 初期無効 -->
+            </div>
+        </section>
+
+        <!-- Modals -->
+        <section id="completion-modal" class="modal" style="display: none;"> <!-- 初期非表示 -->
             <div class="modal-content">
                 <h2>申し込み完了</h2>
-                <p>お申し込みありがとうございます。<br>テストメールを送信しました</p>
+                <p>お申し込みありがとうございます。<br>受付完了メールをお送りしました。</p>
                 <button id="modal-close-btn">閉じる</button>
             </div>
         </section>
@@ -380,7 +364,7 @@
         </section>
 
         <input type="hidden" id="sales-code-input" name="sales-code" value="" />
-        
+
     </main>
 
     <footer>
@@ -397,4 +381,3 @@
     <script src="js/script.js"></script>
   </body>
 </html>
-
