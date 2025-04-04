@@ -1,5 +1,5 @@
 // --- 定数 ---
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxjOG_HYb9ea0xDbMWt2MiITKH309MzJQong6dmK7JE7Cup1KFSBL0dMtWqe7Gy6lcFVQ/exec'; // GAS Web App URL
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzMLHxGK4kssFGuPWTov848_tO8UkdEhwC1DOr7HYgauTsClgDECx7UvshUyNrgm9z7dg/exec'; // GAS Web App URL
 const RECAPTCHA_SITE_KEY = '6LfjFgUrAAAAAKZGVUxEgdoDr2lwh2xaDf6oj_0V'; // reCAPTCHA v3 Site Key
 
 // --- 初期化関連 ---
